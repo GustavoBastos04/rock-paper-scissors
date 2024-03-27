@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock-pape-scissors</title>
+    <title>Rock-Paper-Scissors</title>
 </head>
 <body>
     
     <script>
-
+        function getComputerChoice(){
+            let options = ["Rock", "Paper", "Scissors"];
+            let randomSelection = Math.floor(Math.random()* 3);
+            let selectedOption = options[randomSelection];
+            return selectedOption;
+            }
+            getComputerChoice();
     </script>
 </body>
 </html>
