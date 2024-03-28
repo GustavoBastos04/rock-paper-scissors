@@ -5,27 +5,49 @@ function getComputerChoice(){
     return selectedOption;
     }
 
-function playRound(playerSelection, computerSelection){
-    let computer = computerSelection.toLowerCase();
-    let player = playerSelection.toLowerCase();
+function playRound(){
+    let computer = getComputerChoice().toLowerCase();
+    let player = window.prompt("Choose Rock, Paper or Scissors").toLowerCase();
+
     switch (true) {
-        case ((computer == "paper" && player=="rock") ||(computer == "scissors" && player==="paper") || (computer == "rock" && player ==="scissors" )):
+        case ((computer ==="paper" && player==="rock") ||(computer ==="scissors" && player==="paper") || (computer ==="rock" && player ==="scissors" )):
             
-        return ("You lose! " + computer + " beats " + player);
-            break;
+            return 0;
+        break;
         
-        case ((computer =="rock" && player=="paper") ||(computer == "paper" && player=="scissors") || (computer === "scissors" && player ==="rock" )):
+        case ((computer==="rock" && player==="paper") ||(computer ==="paper" && player==="scissors") || (computer === "scissors" && player ==="rock" )):
 
-            return ("You win! "+ player + " beats " + computer);
-            break;
+            return 1;
+        break;
 
-        case (computer == player): 
-            return ("draw");
-            break;
-        default:
-            return ("Invalid user input");
+            default:
+            return ("Invalid user input, try again");
         }
 }
-    let thePlayer = "Rock";
-    console.log(playRound(thePlayer, getComputerChoice()));
-    console.log(thePlayer.toLowerCase());
+
+function playGame(){
+    let player = 0;
+    let computer = 0;
+
+    for (let i = 0; i < 5; i++) {
+        let result = playRound();
+        if(result === 0) computer++;
+        else if(result === 1) player++;
+        else { 
+            console.log(result)
+            i--;
+        }
+    }
+    switch (true) {
+        case (player>computer):
+            return "Player won the match!";
+            break;
+        
+        case(computer>player):
+            return "Computer won the match!";
+        default:
+            return "Draw!"
+            break;
+    }
+}
+console.log(playGame());
