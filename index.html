@@ -4,44 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock-Paper-Scissors</title>
-</head>
+    <script></script>
 <body>
     
-    <script>
-
-        function getComputerChoice(){
-            let options = ["Rock", "Paper", "Scissors"];
-            let randomSelection = Math.floor(Math.random()* 3);
-            let selectedOption = options[randomSelection];
-            return selectedOption;
-            }
-
-        function playRound(playerSelection, computerSelection){
-            let computer = computerSelection.toLowerCase();
-            let player = playerSelection.toLowerCase();
-            switch (computer, player) {
-                case ((computer === "paper" && player==="rock") ||(computer === "scissors" && player==="paper") || (computer === "rock" && player ==="scissors" )):
-                    
-                return ("You lose! " + computer + " beats " + player);
-                    break;
-                
-                case ((computer === "rock" && player=="paper") ||(computer === "paper" && player==="scissors") || (computer === "scissors" && player ==="rock" )):
-
-                    return ("You win! "+ player + " beats " + computer);
-                    break;
-
-                case (computer === player): 
-                    return ("draw");
-                    break;
-
-                default:
-                    return ("invalid user input");
-                break;
-                }
-        }
-
-            getComputerChoice();
     
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
