@@ -18,6 +18,11 @@ function playRound(){
         case ((computer==="rock" && player==="paper") ||(computer ==="paper" && player==="scissors") || (computer === "scissors" && player ==="rock" )):
 
             return 1;
+
+        break;
+
+        case(computer === player):
+            return 2;
         break;
 
             default:
@@ -31,8 +36,9 @@ function playGame(){
 
     for (let i = 0; i < 5; i++) {
         let result = playRound();
-        if(result === 0) computer++;
-        else if(result === 1) player++;
+        if(result == 0) computer++;
+        else if(result == 1) player++;
+        else if(result ==2 ) console.log("Draw");
         else { 
             console.log(result)
             i--;
