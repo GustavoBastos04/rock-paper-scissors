@@ -1,13 +1,21 @@
+function showComputerChoice(option){
+    let computerChoice = document.querySelector(".image-placeholder-alt");
+    computerChoice.textContent = option;
+    computerChoice.style.fontSize = "35px";
+}
+
 function getComputerChoice(){
-    let options = ["Rock", "Paper", "Scissors"];
+    let options = ["rock", "paper", "scissors"];
     let randomSelection = Math.floor(Math.random()* 3);
     let selectedOption = options[randomSelection];
+
+    showComputerChoice(selectedOption);
     return selectedOption;
     }
 
-function playRound(){
-    let computer = getComputerChoice().toLowerCase();
-    let player = window.prompt("Choose Rock, Paper or Scissors").toLowerCase();
+function playRound(player){
+    let computer = getComputerChoice();
+
 
     switch (true) {
         case ((computer ==="paper" && player==="rock") ||(computer ==="scissors" && player==="paper") || (computer ==="rock" && player ==="scissors" )):
@@ -21,7 +29,7 @@ function playRound(){
 
         break;
 
-        case(computer === player):
+        case(computer == player):
             return 2;
         break;
 
@@ -30,30 +38,102 @@ function playRound(){
         }
 }
 
-function playGame(){
-    let player = 0;
-    let computer = 0;
 
-    for (let i = 0; i < 5; i++) {
-        let result = playRound();
-        if(result == 0) computer++;
-        else if(result == 1) player++;
-        else if(result ==2 ) console.log("Draw");
-        else { 
-            console.log(result)
-            i--;
-        }
-    }
-    switch (true) {
-        case (player>computer):
-            return "Player won the match!";
+let numOfMatches = 1; // maximum: 5
+let resultPanel = document.querySelector(".results");
+let user = document.querySelector(".user");
+let playerChoice;
+
+let computerPoints = 0;
+let userPoints = 0;
+
+let computerText = document.querySelector(".image-placeholder-alt");
+
+user.addEventListener('click', (event) => {
+    
+    let target = event.target;
+    let point = document.createElement("div");
+    point.classList.add("result-box");
+
+    switch (target.id) {
+        case "rock":
+            playerChoice = "rock";
             break;
         
-        case(computer>player):
-            return "Computer won the match!";
+        case "paper":
+            playerChoice = "paper";
+            break;
+
+        case "scissors":
+            playerChoice = "scissors";
+            break;
         default:
-            return "Draw!"
             break;
     }
-}
-console.log(playGame());
+    if (numOfMatches<=5) {
+        let result = playRound(playerChoice);
+
+        switch (result) {
+            case 0:
+                
+                point.style.backgroundColor = "red";
+                point.textContent = "C";
+                resultPanel.appendChild(point);
+                computerPoints++;
+                break;
+            
+            case 1:
+
+                point.style.backgroundColor = "green";
+                point.textContent = "U";
+                resultPanel.appendChild(point);
+                userPoints++;
+                break;
+
+            case 2:
+
+                let draw = document.querySelector(".image-placeholder-alt");
+                draw.textContent += " (draw)";
+                numOfMatches--;
+                break;
+
+            default:
+                break;
+        }
+
+        numOfMatches++;
+    }
+    else {
+        while (resultPanel.firstChild) {
+            resultPanel.removeChild(resultPanel.lastChild);
+        }
+
+        computerText.textContent = "Clique aqui para reiniciar o jogo.";
+        computerText.classList.add("play-again-text");
+
+        point.classList.add("final-result-box");
+        resultPanel.appendChild(point);
+
+        if (userPoints > computerPoints) {
+            point.textContent = "Usuário Ganhou!";
+        }
+        else{
+            point.textContent = "Computador Ganhou!";
+        }
+    }
+
+
+});
+
+// Para reiniciar o jogo
+computerText.addEventListener('click', ()=> {
+    numOfMatches = 1;
+    while (resultPanel.firstChild) {
+        resultPanel.removeChild(resultPanel.lastChild);
+    }
+
+    //Restart computer text
+    computerText.classList.remove("play-again-text");
+    computerText.textContent = "Computer choice will be displayed here";
+    computerText.style.fontSize = "16px";
+});
